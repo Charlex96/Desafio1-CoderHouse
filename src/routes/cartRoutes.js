@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const router = Router();
-const CartManager = require("../cartManager.js");
+const CartManager = require("../persitence/cartManager.js");
 const { validateNumber } = require("./../utils/helpers.js");
-const path = "./src/db/carts.json";
+const path = "/src/db/carts.json";
 const myCartsManager = new CartManager(path);
 
 router.post("/", async (req, res) => {

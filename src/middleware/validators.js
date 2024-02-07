@@ -1,5 +1,5 @@
-const ProductManager = require("../productManager.js");
-const path = "src/db/products.json";
+const ProductManager = require("../persitence/productManager.js");
+const path = "/src/db/products.json";
 const myProductManager = new ProductManager(path);
 
 const validateRequest = (req, res, next) => {

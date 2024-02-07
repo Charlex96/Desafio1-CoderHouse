@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
-const ProductManager = require("./../productManager.js");
-const path = "src/db/products.json";
+const ProductManager = require("../persitence/productManager.js");
+const path = "/src/db/products.json";
 const myProductManager = new ProductManager(path);
 const validateNumber = require("./../utils/helpers.js").validateNumber;
 
@@ -10,6 +10,23 @@ const {
     validateNumberParams,
     validateCodeNotRepeated,
 } = require("./../middleware/validators.js");
+
+const multer = require("multer");
+
+/**Multer config */
+// 'photo' es el nombre del campo en el formulario.
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "src/public/uploads");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+router.use(multer({ storage }).single("thumbnail"));
+
+
+  /**Rutas */
 
 router.get("/", async (req, res) => {
     try {
@@ -60,19 +77,18 @@ router.get("/:id", validateNumberParams, async (req, res) => {
 router.post("/", validateRequest, validateCodeNotRepeated, async (req, res) => {
     try {
         const newProduct = req.body;
+        const photo = req.file;
+        console.log(newProduct);
+        console.log(photo);
+        //  antes de guardar el objeto le añado la propiedad para que se pueda acceder a la foto.
+        newProduct.thumbnail = "/uploads/" + photo.filename;
         const productCreated = await myProductManager.addProduct(newProduct);
-        productCreated
-        ? res.status(201).json({
-            status: "success",
-            payload: productCreated,
-            })
-        : res.json({
-            status: "error",
-            });
+        console.log(productCreated);
+        res.redirect("/");
     } catch (err) {
         res.status(err.status || 500).json({
-        status: "error",
-        payload: err.message,
+            status: "error",
+            payload: err.message,
         });
     }
 });
