@@ -9,6 +9,6 @@ function deleteProduct(id) {
         console.log(data);
         //reload page
         window.location.reload();
-        })
+    })
         .catch((err) => console.log(err));
 }

@@ -2,11 +2,18 @@ const express = require("express");
 const morgan = require("morgan");
 const { Server: SocketServer } = require("socket.io");
 const http = require("http");
-const homeRoutes = require("./routes/homeRoutes.js");
-const productRoutes = require("./routes/productRoutes.js");
-const cartRoutes = require("./routes/cartRoutes.js");
+const homeRoutes = require("./routes/mongo/homeRoutes.js");
+const productRoutes = require("./routes/mongo/productRoutes.js");
+const cartRoutes = require("./routes/fs/cartFsRoutes.js");
 const websockets = require("./websockets/websockets.js");
 const exphbs = require("express-handlebars");
+const homeFsRoutes = require( "./routes/fs/homeFsRoutes.js");
+const productFsRoutes = require( "./routes/fs/productFsRoutes.js");
+const cartFsRoutes = require( "./routes/fs/cartFsRoutes.js");
+const chatRoutes = require( "./routes/mongo/chatRoutes.js");
+
+
+
 
 /** ------------------- variables ------------------- */
 const app = express();
@@ -34,9 +41,20 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
 /** ------------------- routes ------------------- */
-app.use("/", homeRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/carts", cartRoutes);
+// con FileSystem
+app.use("/fs/home", homeFsRoutes);
+app.use("/fs/products", productFsRoutes);
+app.use("/fs/carts", cartFsRoutes);
+// con MongoDB
+app.use("/home", homeRoutes);
+app.use("/products", productRoutes);
+app.use("/carts", cartRoutes);
+app.use("/chat", chatRoutes);
+
+
+/** ------------------- connection mongoDB ------------------- */
+
+connectMongoDB();
 
 const server = httpServer.listen(PORT, () =>
     console.log(

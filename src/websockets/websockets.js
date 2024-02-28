@@ -1,19 +1,20 @@
-const ProductManager = require("../persitence/productManager");
-const path = "/src/db/products.json";
-const myProductManager = new ProductManager(path);
+const MongoDBChats = require( "../daos/mongo/MongoDBChats.js");
+const db = new MongoDBChats();
 
 module.exports = (io) => {
     io.on("connection", (socket) => {
-        console.log("New client websocket: ", socket.id); // x8WIv7-mJelg7on_ALbx
-        socket.on("new-product", async (data) => {
-        console.log(data);
-        try {
-            await myProductManager.addProduct(data);
-            const productListUpdated = await myProductManager.getProducts();
-            io.sockets.emit("refresh-products", productListUpdated);
-        } catch (err) {
-            console.log(err);
-        }
+        console.log("👤 New user connected. Soquet ID : ", socket.id);
+
+        socket.on("new-message", async (message) => {
+        db.create(message);
+        const messages = await db.getAll();
+        console.log(messages);
+        socket.emit("refresh-messages", messages);
+        socket.broadcast.emit("refresh-messages", messages);
+        });
+
+        socket.on("disconnect", () => {
+        console.log("User was disconnected");
         });
     });
 };

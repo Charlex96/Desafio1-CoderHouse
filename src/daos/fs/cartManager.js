@@ -1,6 +1,6 @@
-const fs = require("fs");
-const ProductManager = require("../persitence/productManager.js");
-const pathProducts = "/src/db/products.json";
+const fs = require( "fs");
+const ProductManager = require( "./productManager.js");
+const pathProducts = "src/db/products.json";
 const myProductManager = new ProductManager(pathProducts);
 
 class CartManager {

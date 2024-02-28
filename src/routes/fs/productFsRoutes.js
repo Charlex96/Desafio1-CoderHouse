@@ -1,18 +1,15 @@
-const { Router } = require("express");
+const { Router } = require("express") ;
 const router = Router();
-const ProductManager = require("../persitence/productManager.js");
-const path = "/src/db/products.json";
+const ProductManager = require( "../../daos/fs/productManager.js");
+const path = "src/db/products.json";
 const myProductManager = new ProductManager(path);
-const validateNumber = require("./../utils/helpers.js").validateNumber;
-
+const { validateNumber } = require( "../../utils/helpers.js");
 const {
     validateRequest,
     validateNumberParams,
     validateCodeNotRepeated,
-} = require("./../middleware/validators.js");
-
-const multer = require("multer");
-
+} = require( "../../middleware/validators.js");
+const multer = require( "multer");
 /**Multer config */
 // 'photo' es el nombre del campo en el formulario.
 const storage = multer.diskStorage({
@@ -25,8 +22,7 @@ const storage = multer.diskStorage({
 });
 router.use(multer({ storage }).single("thumbnail"));
 
-
-  /**Rutas */
+/**Rutas */
 
 router.get("/", async (req, res) => {
     try {
@@ -87,8 +83,8 @@ router.post("/", validateRequest, validateCodeNotRepeated, async (req, res) => {
         res.redirect("/");
     } catch (err) {
         res.status(err.status || 500).json({
-            status: "error",
-            payload: err.message,
+        status: "error",
+        payload: err.message,
         });
     }
 });
