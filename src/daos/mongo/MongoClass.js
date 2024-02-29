@@ -7,48 +7,48 @@ class MongoClass {
 
     async getAll() {
         try {
-        const all = await this.collection.find({});
-        return all;
+            const all = await this.collection.find({});
+            return all;
         } catch (err) {
-        throw new Error(err);
+            throw new Error(err);
         }
     }
 
     async getOne(id) {
         try {
-        const one = await this.collection.findById(id);
-        return one;
+            const one = await this.collection.findById(id);
+            return one;
         } catch (err) {
-        throw new Error(err);
+            throw new Error(err);
         }
     }
 
     async create(doc) {
         console.log(doc);
         try {
-        const newDoc = await this.collection.create(doc);
-        return newDoc;
+            const newDoc = await this.collection.create(doc);
+            return newDoc;
         } catch (err) {
-        throw new Error(err);
+            throw new Error(err);
         }
     }
 
     async update(id, doc) {
         try {
-        await this.collection.findByIdAndUpdate(id, doc);
-        const docUpdated = await this.collection.findById(id);
-        return docUpdated;
+            await this.collection.findByIdAndUpdate(id, doc);
+            const docUpdated = await this.collection.findById(id);
+            return docUpdated;
         } catch (err) {
-        throw new Error(err);
+            throw new Error(err);
         }
     }
 
     async delete(id) {
         try {
-        const deletedDoc = await this.collection.findByIdAndDelete(id);
-        return deletedDoc;
+            const deletedDoc = await this.collection.findByIdAndDelete(id);
+            return deletedDoc;
         } catch (err) {
-        throw new Error(err);
+            throw new Error(err);
         }
     }
 }

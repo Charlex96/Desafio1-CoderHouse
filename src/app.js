@@ -2,15 +2,16 @@ const express = require("express");
 const morgan = require("morgan");
 const { Server: SocketServer } = require("socket.io");
 const http = require("http");
+const exphbs = require("express-handlebars");
 const homeRoutes = require("./routes/mongo/homeRoutes.js");
 const productRoutes = require("./routes/mongo/productRoutes.js");
 const cartRoutes = require("./routes/fs/cartFsRoutes.js");
 const websockets = require("./websockets/websockets.js");
-const exphbs = require("express-handlebars");
 const homeFsRoutes = require( "./routes/fs/homeFsRoutes.js");
 const productFsRoutes = require( "./routes/fs/productFsRoutes.js");
 const cartFsRoutes = require( "./routes/fs/cartFsRoutes.js");
 const chatRoutes = require( "./routes/mongo/chatRoutes.js");
+const {connectMongoDB} = require( "./config/configMongoDB.js");
 
 
 

@@ -1,5 +1,5 @@
 const MongoClass = require( "./MongoClass.js");
-const  productsSchema = require( "./models/ProductsSchema.js");
+const productsSchema = require( "./models/ProductsSchema.js");
 
 class MongoDBProducts extends MongoClass {
     constructor() {

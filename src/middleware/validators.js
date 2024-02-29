@@ -1,5 +1,5 @@
 const ProductManager = require("../daos/fs/productManager.js");
-const path = "src/db/products.json";
+const path = "../files/products.json";
 const myProductManager = new ProductManager(path);
 
 const validateRequest = (req, res, next) => {
@@ -56,4 +56,3 @@ module.exports = {
     validateNumberParams,
     validateCodeNotRepeated,
 };
-

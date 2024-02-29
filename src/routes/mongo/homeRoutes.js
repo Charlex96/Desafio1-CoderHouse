@@ -1,7 +1,7 @@
 const { Router } = require("express") ;
 const router = Router();
 const ProductManager = require( "../../daos/fs/productManager.js");
-const path = "src/db/products.json";
+const path = "../../files/products.json";
 const myProductManager = new ProductManager(path);
 const { validateNumber } = require( "../../utils/helpers.js");
 
@@ -30,3 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
