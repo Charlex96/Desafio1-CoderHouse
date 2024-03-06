@@ -1,8 +1,43 @@
-{{! FORMULARIO DE CREACIÓN DE PRODUCTOS }}
-<section>
+{{! HEADER }}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+
+        <a
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbarBasicExample"
+        >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+
+        <div class="navbar-end">
+        <div class="navbar-item">
+            <div class="buttons">
+            <a class="button is-info" onclick="goToCart()">
+                <strong>Cart</strong>
+            </a>
+            <a class="button is-primary">
+                <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+                Log in
+            </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </nav>
+    {{! FORMULARIO DE CREACIÓN DE PRODUCTOS }}
+    <section>
     <div class="container mt-6" style="max-width: 500px">
-        {{!-- <form action="/api/products" method="post" enctype="multipart/form-data"> --}}
-        <form action="/products" method="post" enctype="multipart/form-data">
+        <form action="/api/products" method="post" enctype="multipart/form-data">
         <h3 class="is-size-3 mb-5">Ingrese un nuevo producto</h3>
         <div class="field">
             <label class="label">Nombre</label>
@@ -109,37 +144,15 @@
         </div>
         </form>
     </div>
-</section>
+</section> 
 
 {{! LISTA DE PRODUCTOS }}
 
 <section class="mt-6">
-    <div class="container is-flex is-flex-wrap-wrap">
-        {{#each products}}
-        <div class="card" style="width: 150px; margin: 20px">
-            <div class="card-image" style="padding: 15px">
-            <figure class="image is-4by3">
-                <img src="{{thumbnail}}" alt="Placeholder image" />
-            </figure>
-            </div>
-            <div class="card-content">
-            <div class="media">
-                <div class="media-content">
-                <p class="title is-6">{{title}}</p>
-                <p class="title is-4">{{description}}</p>
-                <p class="subtitle is-6">{{price}}</p>
-                </div>
-            </div>
-            <button
-                class="button is-small"
-                type="button"
-                onclick="deleteProduct({{id}})"
-            ><ion-icon name="trash"></ion-icon></button>
-
-            </div>
-        </div>
-        {{/each}}
+    <div class="container is-flex is-flex-wrap-wrap" id="products-container">
     </div>
 </section>
+{{!PAGINATION  }}
+<div id="pagination-container" style="margin:50px;"></div>
 
 <script src="/js/home.js"></script>
