@@ -1,6 +1,6 @@
-const mongoose = require( "mongoose");
+import mongoose from "mongoose";
 
-const messagesSchema = new mongoose.Schema({
+export const messagesSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
@@ -10,5 +10,3 @@ const messagesSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-module.exports = messagesSchema;

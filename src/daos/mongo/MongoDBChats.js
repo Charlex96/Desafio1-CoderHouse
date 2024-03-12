@@ -1,10 +1,10 @@
-const MongoClass = require( "./MongoClass.js");
-const messagesSchema = require( "./models/MessagesSchema.js");
+import MongoClass from "./MongoClass.js";
+import { messagesSchema } from "./models/MessagesSchema.js";
 
-class MongoDBChats extends MongoClass {
-    constructor() {
-        super("messages", messagesSchema);
-    }
+export class MongoDBChats extends MongoClass {
+  constructor() {
+    super("messages", messagesSchema);
+  }
 }
 
-module.exports = MongoDBChats;
+export default MongoDBChats;
