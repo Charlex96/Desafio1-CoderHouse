@@ -62,7 +62,8 @@ app.use(
     resave: true,
     saveUninitialized: true,
     store: MongoStore.create({
-      mongoUrl: `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0.cyfup.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
+      mongoUrl: `mongodb+srv://fimacharles:lE8oqWVO44hcDsJu@dbcoder.bpexbss.mongodb.net/ecommerce`,
+      // mongoUrl: `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@dbcoder.bpexbss.mongodb.net/${DB_NAME}`,
       ttl: 60 * 10, // 10 minutes
     }),
   })
