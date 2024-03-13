@@ -119,7 +119,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/github/callback",
+      callbackURL: "https://github.com/apps/desafiocoderbackend",
     },
     async (accessToken, refreshToken, profile, done) => {
       // Aquí puedes manejar los datos del usuario autenticado
