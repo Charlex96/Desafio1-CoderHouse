@@ -115,7 +115,7 @@ connectMongoDB();
 
 const server = httpServer.listen(PORT, () =>
   console.log(
-    `🚀 Server started on port ${PORT}. 
+    `🚀 Server started on port ${PORT}.
       at ${new Date().toLocaleString()}`
   )
 );
