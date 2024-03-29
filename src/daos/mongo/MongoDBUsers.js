@@ -14,5 +14,14 @@ export class MongoDBUsers extends MongoClass {
       throw new Error(err);
     }
   }
+
+  async getUserByEmail(email) {
+    try {
+      const user = await this.baseModel.findOne(email);
+      return user;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }
 export default MongoDBUsers;

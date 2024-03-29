@@ -40,9 +40,9 @@ router.get("/", isAuth, async (req, res) => {
      *  y puede accederse a ellos con req.user
      */
     console.log("usuario guardado en session: ", req.user);
-    const username = req.user?.username;
-    //response
-    res.render("home", { username });
+    const user = req.user;
+    console.log("user", user);
+    res.render("home", { user });
   } catch (err) {
     res.status(err.status || 500).json({
       status: "error",

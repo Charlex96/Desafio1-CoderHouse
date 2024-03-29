@@ -20,14 +20,15 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          {{#if username}}
+          {{#if user}}
             <div
               style="display: flex;
                       align-items: center;"
             >
               <div>
                 <h4 class="title is-4" style="margin-right: 15px;">👋 Hola
-                  {{username}}</h4>
+                  {{user.first_name}}
+                  {{user.last_name}}</h4>
               </div>
               <div style="margin-right: 10px;">
                 <a class="button is-info" onclick="goToCart()">
