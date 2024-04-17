@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 
-const usersSchema = new mongoose.Schema({
+const usersSchema = new Schema({
   first_name: String,
   last_name: String,
   email: String,
   age: Number,
   password: String,
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Carts",
   },
   role: {
@@ -16,4 +16,4 @@ const usersSchema = new mongoose.Schema({
   },
 });
 
-export { usersSchema };
+export default model("users", usersSchema);

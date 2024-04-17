@@ -1,11 +1,9 @@
-import MongoClass from "./MongoClass.js";
-import { productsSchema } from "./models/ProductsSchema.js";
-
-export class MongoDBProducts extends MongoClass {
+import BaseMongoDao from "./base.mongo.dao.js";
+import productsModel from "../../models/product.model.js";
+export class ProductMongoDao extends BaseMongoDao {
   constructor() {
-    super("products", productsSchema);
+    super(productsModel);
   }
-
   async getAll(limit, page, sort, query) {
     try {
       /**El primer argumento es el filtro de busqueda,
@@ -17,11 +15,9 @@ export class MongoDBProducts extends MongoClass {
        *  de instancias completas de modelos de Mongoose. */
       /**{ title: 'Iphone X Upd2222' } acceder al value de un objeto
        */
-      const filter = query
-        ? { title: { $regex: query.title, $options: "i" } }
-        : {};
+      const filter = query ? { title: { $regex: query, $options: "i" } } : {};
       /** La "i" de las options hace que no discrimine mayúsculas o minúsculas */
-      const all = await this.baseModel.paginate(filter, {
+      const all = await this.db.paginate(filter, {
         limit: limit || 10,
         page: page || 1,
         sort: sort || {},

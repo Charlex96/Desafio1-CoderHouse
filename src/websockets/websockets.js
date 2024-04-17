@@ -1,13 +1,13 @@
-import MongoDBChats from "../daos/mongo/MongoDBChats.js";
-const db = new MongoDBChats();
+import getDAOS from "../daos/daos.factory.js";
+const { chatDao } = getDAOS();
 
 export default (io) => {
   io.on("connection", (socket) => {
     console.log("👤 New user connected. Soquet ID : ", socket.id);
 
     socket.on("new-message", async (message) => {
-      db.create(message);
-      const messages = await db.getAll();
+      chatDao.create(message);
+      const messages = await chatDao.getAll();
 
       socket.emit("refresh-messages", messages);
       socket.broadcast.emit("refresh-messages", messages);
