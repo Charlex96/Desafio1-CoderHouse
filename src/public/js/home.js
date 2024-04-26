@@ -6,7 +6,7 @@ const getCurrentUser = () => {
     .then((res) => res.json())
     .then((data) => {
       const user = data;
-      console.log("user", user);
+      console.log("current user", user);
       if (user) {
         localStorage.setItem("email", JSON.stringify(user.email));
         localStorage.setItem(

@@ -1,8 +1,7 @@
-import getDAOS from "../daos/daos.factory.js";
-const { productDao } = getDAOS();
-//import productDao from "../daos/mongo/product.mongo.dao.js";
+import { ProductService } from "../services/product.service.js";
+const productService = new ProductService();
 class ProductController {
-  async viewAll(req, res) {
+  async getAll(req, res) {
     try {
       /**Deberá poder recibir por query params
        * un limit (opcional), una page (opcional),
@@ -11,7 +10,7 @@ class ProductController {
        */
       const { limit, page, sort, query } = req.query;
 
-      const products = await productDao.getAll(limit, page, sort, query);
+      const products = await productService.getAll(limit, page, sort, query);
       products
         ? res.status(200).json({
             status: "success",
@@ -29,7 +28,7 @@ class ProductController {
   async getOne(req, res) {
     try {
       const id = req.params.id;
-      const product = await productDao.getOne(id);
+      const product = await productService.getOne(id);
       product
         ? res.status(200).json({
             status: "success",
@@ -52,7 +51,7 @@ class ProductController {
     try {
       const newProduct = req.body;
       // validate code not repeated
-      const response = await productDao.getAll();
+      const response = await productService.getAll();
       const allProducts = response.docs;
       const product = allProducts.find(
         (product) => product.code == newProduct.code
@@ -65,7 +64,7 @@ class ProductController {
         });
         return;
       }
-      const productCreated = await productDao.create(newProduct);
+      const productCreated = await productService.create(newProduct);
 
       res.status(201).json({
         status: "success",
@@ -83,7 +82,7 @@ class ProductController {
     try {
       const id = req.params.id;
       const newProduct = req.body;
-      const productUpdated = await productDao.update(id, newProduct);
+      const productUpdated = await productService.update(id, newProduct);
       res.status(200).json({
         status: "success",
         payload: productUpdated,
@@ -98,7 +97,7 @@ class ProductController {
   async deleteOne(req, res) {
     try {
       const id = req.params.id;
-      const productDeleted = await productDao.delete(id);
+      const productDeleted = await productService.delete(id);
       res.status(200).json({
         status: "success",
         payload: productDeleted,
@@ -113,6 +112,6 @@ class ProductController {
 }
 
 const productController = new ProductController();
-const { viewAll, getOne, create, update, deleteOne } = productController;
+const { getAll, getOne, create, update, deleteOne } = productController;
 
-export { viewAll, getOne, create, update, deleteOne };
+export { getAll, getOne, create, update, deleteOne };

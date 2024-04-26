@@ -6,7 +6,6 @@ class HomeController {
        */
       console.log("usuario guardado en session: ", req.user);
       const user = req.user;
-      console.log("user", user);
       res.render("home", { user });
     } catch (err) {
       res.status(err.status || 500).json({

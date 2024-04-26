@@ -21,4 +21,9 @@ export class UserMongoDao extends BaseMongoDao {
       throw new Error(err);
     }
   }
+
+  async getPurchaser(cart) {
+    const user = await this.db.findOne({ cart: cart });
+    return user?.email;
+  }
 }

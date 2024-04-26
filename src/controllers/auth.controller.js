@@ -23,6 +23,9 @@ class AuthController {
   }
 
   async getCurrentUser(req, res) {
+    /**No consulta a la DB, sino que obtiene el user del req
+     * (passport lo guarda en el req luego del login)
+     */
     try {
       const user = await req.user;
       const userDTO = new userDTOResponse(user);
@@ -36,7 +39,6 @@ class AuthController {
   }
   async logout(req, res) {
     // Hace logout y elimina la sesión del usuario autenticado
-    console.log("req.logout", req.logout);
     req.logout(function (err) {
       if (err) {
         // Maneja el error de logout

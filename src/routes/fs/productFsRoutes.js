@@ -108,7 +108,6 @@ router.put("/:id", validateRequest, validateNumberParams, async (req, res) => {
 
 router.delete("/:id", validateNumberParams, async (req, res) => {
   try {
-    console.log("delete");
     const id = req.params.id;
     const product = await myProductManager.getProductById(id);
     if (!product) {

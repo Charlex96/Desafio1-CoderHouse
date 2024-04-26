@@ -5,8 +5,10 @@ import { Strategy as LocalStrategy } from "passport-local";
 // passport-github2
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { encryptPassword, comparePassword } from "../config/bcrypt.js";
-import getDAOS from "../daos/daos.factory.js";
-const { userDao, cartDao } = getDAOS();
+import { UserService } from "../services/user.service.js";
+import { CartService } from "../services/cart.service.js";
+const userService = new UserService();
+const cartService = new CartService();
 
 const localStrategy = LocalStrategy;
 const githubStrategy = GitHubStrategy;
@@ -35,7 +37,7 @@ passport.use(
     },
     async (req, email, password, done) => {
       // done es un callback que se ejecuta cuando termina la funcion
-      const usuarioSaved = await userDao.getUserByEmail({ email });
+      const usuarioSaved = await userService.getUserByEmail({ email });
       if (usuarioSaved) {
         req.flash(
           "errorMessage",
@@ -45,7 +47,7 @@ passport.use(
       } else {
         const hashPass = await encryptPassword(password);
         /** create new Cart */
-        const newCart = await cartDao.create();
+        const newCart = await cartService.create();
         const newUser = {
           first_name: req.body.first_name,
           last_name: req.body.last_name,
@@ -55,7 +57,7 @@ passport.use(
           password: hashPass,
           role: req.body.role || "user",
         };
-        const response = await userDao.create(newUser);
+        const response = await userService.create(newUser);
         console.log("Nuevo usuario registrado: ", response);
         return done(null, response);
       }
@@ -75,7 +77,7 @@ passport.use(
       // aunque no se use el req, hay que ponerlo para que funcione
       // done es un callback que se ejecuta cuando termina la funcion
 
-      const usuarioSaved = await userDao.getUserByEmail({ email });
+      const usuarioSaved = await userService.getUserByEmail({ email });
       if (!usuarioSaved) {
         req.flash(
           "errorMessage",
@@ -109,29 +111,17 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await userDao.getOne(id);
+  const user = await userService.getOne(id);
   done(null, user);
 });
 
-// middleware para proteger rutas
-function isAuth(req, res, next) {
-  /**
-   * req.isAuthenticated() es una función propia de passport que
-   * verifica que el usuario este autenticado.
-   */
-  if (req.isAuthenticated()) {
-    // Si esta autenticado sigue con la ejecucion que queremos
-    return next();
-  }
-  res.redirect("/auth/login");
-}
 /** AUTHENTICATION - GITHUB */
 passport.use(
   new githubStrategy(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "https://github.com/apps/desafiocoderbackend",
+      callbackURL: "http://localhost:8080/auth/github/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       // Aquí puedes manejar los datos del usuario autenticado
@@ -140,17 +130,17 @@ passport.use(
         username: profile.username,
         password: null, // no tenemos password pero lo necesita el modelo
       };
-      const userSaved = await userDao.getUserByUsername({
+      const userSaved = await userService.getUserByUsername({
         username: user.username,
       });
       if (userSaved) {
         return done(null, userSaved);
       } else {
-        const response = await userDao.create(user);
+        const response = await userService.create(user);
         return done(null, response);
       }
     }
   )
 );
 
-export { passport, isAuth };
+export { passport };
