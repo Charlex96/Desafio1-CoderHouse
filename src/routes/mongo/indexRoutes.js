@@ -12,6 +12,8 @@ router.use("/products", productRoutes);
 router.use("/carts", cartRoutes);
 router.use("/chat", chatRoutes);
 router.use("/auth", authRoutes);
+router.use('/logger', loggerTestsRouter)
+
 
 router.use("/error", (req, res) => {
   const { errorMessage } = req.flash();
