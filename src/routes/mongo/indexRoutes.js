@@ -4,6 +4,8 @@ import homeRoutes from "./homeRoutes.js";
 import productRoutes from "./productRoutes.js";
 import cartRoutes from "./cartRoutes.js";
 import chatRoutes from "./chatRoutes.js";
+import loggerTestsRouter from "./loggerTestsRouter.js";
+import { requestPasswordReset, resetPassword } from "../controllers/authController.js";
 
 const router = Router();
 
@@ -12,8 +14,11 @@ router.use("/products", productRoutes);
 router.use("/carts", cartRoutes);
 router.use("/chat", chatRoutes);
 router.use("/auth", authRoutes);
-router.use('/logger', loggerTestsRouter)
+router.use('/logger', loggerTestsRouter);
 
+// Rutas para la recuperación de contraseña
+router.post('/auth/request-password-reset', requestPasswordReset);
+router.post('/auth/reset-password/:token', resetPassword);
 
 router.use("/error", (req, res) => {
   const { errorMessage } = req.flash();
@@ -27,4 +32,5 @@ router.use("/", (req, res) => {
 router.use("*", (req, res, next) => {
   res.render("notfound");
 });
+
 export default router;
