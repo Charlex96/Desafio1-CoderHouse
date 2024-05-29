@@ -4,8 +4,8 @@ import homeRoutes from "./homeRoutes.js";
 import productRoutes from "./productRoutes.js";
 import cartRoutes from "./cartRoutes.js";
 import chatRoutes from "./chatRoutes.js";
-import loggerTestsRouter from "./loggerTestsRouter.js";
-import { requestPasswordReset, resetPassword } from "../controllers/authController.js";
+import loggerTestsRouter from "./loggerTest.router.js";
+import { requestPasswordReset, resetPassword } from "../../controllers/auth.controller.js";
 
 const router = Router();
 

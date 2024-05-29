@@ -16,6 +16,7 @@ import {
 } from "./config/session-config.js";
 import flash from "connect-flash";
 import CONFIG from "./config/config.js";
+import swaggerSetup from './swagger.js';
 
 /** ★━━━━━━━━━━━★ variables ★━━━━━━━━━━━★ */
 
@@ -53,6 +54,10 @@ const handlebars = exphbs.create({
 app.engine("handlebars", handlebars.engine);
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
+
+/** ★━━━━━━━━━━━★ routes ★━━━━━━━━━━━★ */
+
+swaggerSetup(app);
 
 /** ★━━━━━━━━━━━★ routes ★━━━━━━━━━━━★ */
 

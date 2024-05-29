@@ -1,8 +1,8 @@
 import userDTOResponse from "../dto/responses/user.response.dto.js";
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import User from '../models/user.js';
-import MailingService from '../services/MailingService.js';
+import User from '../models/user.model.js';
+import MailingService from '../services/mailing.service.js';
 import config from '../config/config.js';
 
 const mailingService = new MailingService();

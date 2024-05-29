@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Products API Documentation
+  version: 1.0.0
+  description: API documentation for the product module
+
+paths:
+  /products:
+    get:
+      summary: Retrieve a list of products
+      tags: [Products]
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /products/{id}:
+    get:
+      summary: Get a product by ID
+      tags: [Products]
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      responses:
+        "200":
+          description: A product object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "404":
+          description: Product not found
+
+components:
+  parameters:
+    ProductId:
+      name: id
+      in: path
+      description: ID of the product
+      required: true
+      schema:
+        type: string
+        example: '60c72b2f9b1e8e2a4c8a5e5a'
+        
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        code:
+          type: string
+        price:
+          type: number
+        stock:
+          type: number
+        category:
+          type: string
+        status:
+          type: boolean
+        thumbnail:
+          type: array
+          items:
+            type: string
