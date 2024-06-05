@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha src/test --recursive",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
@@ -38,6 +38,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "morgan": "^1.10.0"
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
+    "morgan": "^1.10.0",
+    "supertest": "^7.0.0"
   }
 }
