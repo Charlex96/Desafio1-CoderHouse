@@ -45,3 +45,19 @@ export function isCartOwner(req, res, next) {
       "Error de autorización. No tienes permiso para acceder al recurso solicitado",
   });
 }
+
+
+export const ensurePremium = (req, res, next) => {
+  if (req.user.role !== 'premium') {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+  next();
+};
+
+export const ensureAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+  next();
+};
+

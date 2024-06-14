@@ -18,8 +18,22 @@ const usersSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  documents: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      reference: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  last_connection: {
+    type: Date,
+  },
 });
-
 
 usersSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -27,9 +41,8 @@ usersSchema.pre("save", async function (next) {
   next();
 });
 
-
 usersSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export default model("users", usersSchema);
+export default model("User", usersSchema);
